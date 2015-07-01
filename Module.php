@@ -3,9 +3,15 @@
 namespace TccCacheBuster;
 
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
+use Zend\ModuleManager\Feature\ConfigProviderInterface;
+use Zend\ModuleManager\Feature\ServiceProviderInterface;
 use Zend\ModuleManager\Feature\ViewHelperProviderInterface;
 
-class Module implements ViewHelperProviderInterface, AutoloaderProviderInterface
+class Module implements
+    ViewHelperProviderInterface,
+    AutoloaderProviderInterface,
+    ConfigProviderInterface,
+    ServiceProviderInterface
 {
     public function getViewHelperConfig()
     {
@@ -21,5 +27,15 @@ class Module implements ViewHelperProviderInterface, AutoloaderProviderInterface
                 ),
             ),
         );
+    }
+
+    public function getConfig()
+    {
+        return include(__DIR__ . '/config/module.config.php');
+    }
+
+    public function getServiceConfig()
+    {
+        return include(__DIR__ . '/config/service/service.config.php');
     }
 }
